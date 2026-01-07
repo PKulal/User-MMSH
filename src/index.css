@@ -1,0 +1,212 @@
+/* Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Colors - Light Mode Monochrome */
+  --color-primary: 0 0% 0%;
+  /* Pure Black */
+  --color-primary-dark: 0 0% 20%;
+  /* Dark Gray */
+  --color-secondary: 0 0% 90%;
+  /* Light Gray */
+
+  /* Backgrounds */
+  --bg-dark: 0 0% 98%;
+  /* Off-White background */
+  --bg-card: 0 0% 100%;
+  /* Pure White Card */
+  --bg-card-hover: 0 0% 96%;
+
+  /* Text */
+  --text-main: 0 0% 10%;
+  /* Nearly Black */
+  --text-muted: 0 0% 40%;
+  /* Medium Gray */
+  --text-dim: 0 0% 60%;
+  /* Light Gray */
+
+  /* Status Colors (Accessible in Light Mode) */
+  --status-success: 145 0% 40%;
+  /* Gray */
+  --status-warning: 40 0% 40%;
+  --status-error: 0 0% 40%;
+
+  /* UI */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  /* --radius-full: 0px;  Sharp corners for strict B&W look? Let's keep small radius */
+
+  /* Glassmorphism - Light Mode */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  /* Dark subtle border */
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: hsl(var(--bg-dark));
+  color: hsl(var(--text-main));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(var(--text-main));
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.card {
+  background: hsl(var(--bg-card));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: var(--transition-fast);
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: hsl(var(--text-main));
+  /* Black */
+  color: hsl(var(--bg-card));
+  /* White */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  background: hsl(var(--color-primary-dark));
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: white;
+  color: hsl(var(--text-main));
+  border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--color-secondary));
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  color: hsl(var(--text-muted));
+  font-weight: 600;
+}
+
+.input-field {
+  background: hsl(var(--bg-card));
+  border: 1px solid var(--glass-border);
+  color: hsl(var(--text-main));
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: hsl(var(--color-primary));
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.input-field.error {
+  border-color: #ef4444;
+  /* Keep subtle red for errors or it's usability nightmare */
+}
+
+.error-text {
+  color: #ef4444;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Table Wrapper */
+.table-container,
+.sections-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
