@@ -140,24 +140,12 @@ export default function CampaignDetails() {
 
                     {/* Price Estimate */}
                     <div className="card glass-panel">
-                        <div className="price-header">
+                        {/* <div className="price-header">
                             <h3 className="section-title mb-0">Price Estimate</h3>
                             {status === 'Submitted' && <span className="badge-outline">Pending Review</span>}
-                        </div>
+                        </div> */}
 
                         <div className="price-rows">
-                            <div className="price-row">
-                                <span>Screen fees</span>
-                                <span>{(campaign.price * 0.8).toLocaleString()} KWD</span>
-                            </div>
-                            <div className="price-row">
-                                <span>Peak hours surcharge</span>
-                                <span>{(campaign.price * 0.15).toLocaleString()} KWD</span>
-                            </div>
-                            <div className="price-row">
-                                <span>Production fee</span>
-                                <span>{(campaign.price * 0.05).toLocaleString()} KWD</span>
-                            </div>
                             <div className="price-row total">
                                 <span>Total Estimate</span>
                                 <span>{campaign.price.toLocaleString()} KWD</span>
