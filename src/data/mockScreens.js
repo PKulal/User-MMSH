@@ -8,6 +8,7 @@ export const MOCK_SCREENS = [
         type: 'Outdoor',
         resolution: '1920x1080',
         size: '40ft x 20ft',
+        totalQuantity: 5,
         basePricePerHour: 50, // KWD
         coordinates: { lat: 29.3759, lng: 47.9774 },
         audience: 'High Traffic, Tourists',
@@ -50,6 +51,7 @@ export const MOCK_SCREENS = [
         type: 'Indoor',
         resolution: '1080x1920',
         size: '55 inch',
+        totalQuantity: 10,
         basePricePerHour: 15, // KWD
         coordinates: { lat: 29.3340, lng: 48.0680 },
         audience: 'Shoppers, Families',
@@ -91,6 +93,7 @@ export const MOCK_SCREENS = [
         type: 'Outdoor',
         resolution: '3840x2160',
         size: '20ft x 10ft',
+        totalQuantity: 3,
         basePricePerHour: 30, // KWD
         coordinates: { lat: 29.2089, lng: 48.0933 },
         audience: 'Commuters',
@@ -131,6 +134,7 @@ export const MOCK_SCREENS = [
         type: 'Indoor',
         resolution: '1280x720',
         size: '85 inch',
+        totalQuantity: 8,
         basePricePerHour: 20, // KWD
         coordinates: { lat: 29.3519, lng: 47.9940 },
         audience: 'Elite, Shoppers',
@@ -172,6 +176,7 @@ export const MOCK_SCREENS = [
         type: 'Indoor',
         resolution: '1920x1080',
         size: '65 inch',
+        totalQuantity: 12,
         basePricePerHour: 25, // KWD approx
         coordinates: { lat: 24.7743, lng: 46.6397 },
         audience: 'Shoppers',
@@ -212,6 +217,7 @@ export const MOCK_SCREENS = [
         type: 'Outdoor',
         resolution: '3840x2160',
         size: '30ft x 15ft',
+        totalQuantity: 4,
         basePricePerHour: 60, // KWD approx
         coordinates: { lat: 25.2916, lng: 51.5303 },
         audience: 'Tourists, Locals',

@@ -27,6 +27,34 @@ export default function Step3Slots() {
     updateCampaignData({ screenSlots: newSelections });
   };
 
+  const selectPeakHours = () => {
+    const screenId = currentScreen.id;
+    const peakHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17]; // 8 AM - 5 PM
+    const newSelections = { ...selections, [screenId]: peakHours };
+    updateCampaignData({ screenSlots: newSelections });
+  };
+
+  const selectNonPeakHours = () => {
+    const screenId = currentScreen.id;
+    const peakHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+    const nonPeakHours = Array.from({ length: 24 }, (_, i) => i).filter(h => !peakHours.includes(h));
+    const newSelections = { ...selections, [screenId]: nonPeakHours };
+    updateCampaignData({ screenSlots: newSelections });
+  };
+
+  const selectAllHours = () => {
+    const screenId = currentScreen.id;
+    const allHours = Array.from({ length: 24 }, (_, i) => i);
+    const newSelections = { ...selections, [screenId]: allHours };
+    updateCampaignData({ screenSlots: newSelections });
+  };
+
+  const clearAllHours = () => {
+    const screenId = currentScreen.id;
+    const newSelections = { ...selections, [screenId]: [] };
+    updateCampaignData({ screenSlots: newSelections });
+  };
+
   const handleNext = () => {
     // Check if all screens have at least one segment
     const allValid = selectedScreens.every(s => (selections[s.id] && selections[s.id].length > 0));
@@ -89,6 +117,21 @@ export default function Step3Slots() {
           <div className="selection-card glass-panel">
             <h4>Select Hourly Segments</h4>
             <p className="text-xs text-muted mb-4">Choose the hours you want your ad to run. Each segment allows one 10s ad every 180s.</p>
+
+            <div className="selection-toolbar">
+              <button className="toolbar-btn" onClick={selectPeakHours}>
+                <Sun size={14} /> Select all peak hours
+              </button>
+              <button className="toolbar-btn" onClick={selectNonPeakHours}>
+                <Moon size={14} /> Select non-peak hours
+              </button>
+              <button className="toolbar-btn" onClick={selectAllHours}>
+                <Zap size={14} /> Select all
+              </button>
+              <button className="toolbar-btn clear" onClick={clearAllHours}>
+                Clear all
+              </button>
+            </div>
 
             <div className="hours-grid">
               {Array.from({ length: 24 }).map((_, i) => {
@@ -214,6 +257,43 @@ export default function Step3Slots() {
 
         .selection-card h4 {
             margin-bottom: 0.5rem;
+        }
+
+        .selection-toolbar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: hsl(var(--text-main));
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: hsl(var(--text-muted));
+        }
+
+        .toolbar-btn.clear {
+            color: hsl(var(--status-error));
+            border-color: rgba(var(--status-error), 0.3);
+        }
+        
+        .toolbar-btn.clear:hover {
+            background: rgba(var(--status-error), 0.1);
+            border-color: hsl(var(--status-error));
         }
 
         .mb-4 { margin-bottom: 1.5rem; }

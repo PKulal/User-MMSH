@@ -23,8 +23,19 @@ export default function Step2Discovery() {
         if (isSelected) {
             newSelection = campaignData.selectedScreens.filter(s => s.id !== screen.id);
         } else {
-            newSelection = [...campaignData.selectedScreens, screen];
+            newSelection = [...campaignData.selectedScreens, { ...screen, selectedQuantity: 1 }];
         }
+        updateCampaignData({ selectedScreens: newSelection });
+    };
+
+    const updateScreenQuantity = (screenId, delta) => {
+        const newSelection = campaignData.selectedScreens.map(s => {
+            if (s.id === screenId) {
+                const newQty = Math.max(1, Math.min(s.totalQuantity || 1, (s.selectedQuantity || 1) + delta));
+                return { ...s, selectedQuantity: newQty };
+            }
+            return s;
+        });
         updateCampaignData({ selectedScreens: newSelection });
     };
 
@@ -241,21 +252,6 @@ export default function Step2Discovery() {
                                     </div>
                                 </div>
 
-                                <div className="playback-info-box">
-                                    <h3 className="card-title">Playback Information</h3>
-                                    <div className="info-row">
-                                        <span>Slot Duration</span>
-                                        <span>{selectedDetailScreen.specs?.slotDuration || '10s'}</span>
-                                    </div>
-                                    <div className="info-row">
-                                        <span>Loop Length</span>
-                                        <span>{selectedDetailScreen.specs?.loopLength || '60s'}</span>
-                                    </div>
-                                    <div className="info-row">
-                                        <span>Category</span>
-                                        <span>{selectedDetailScreen.specs?.category || 'General'}</span>
-                                    </div>
-                                </div>
 
                                 {/* Select Button in Details View */}
                                 <div className="details-action-area">
@@ -706,10 +702,42 @@ export default function Step2Discovery() {
                                                     toggleScreenSelection(screen);
                                                 }}
                                             >
-                                                {isSelected ? 'Remove' : 'Select'}
+                                                {isSelected ? 'Selected' : 'Select'}
                                             </button>
                                         </div>
                                     </div>
+
+                                    {isSelected && (
+                                        <div className="quantity-selector-row">
+                                            <div className="qty-info">
+                                                <span className="qty-label">BOOKED QUANTITY</span>
+                                                <span className="qty-available">{screen.totalQuantity} available</span>
+                                            </div>
+                                            <div className="qty-controls">
+                                                <button
+                                                    className="qty-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        updateScreenQuantity(screen.id, -1);
+                                                    }}
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="qty-value">
+                                                    {campaignData.selectedScreens.find(s => s.id === screen.id)?.selectedQuantity || 1}
+                                                </span>
+                                                <button
+                                                    className="qty-btn"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        updateScreenQuantity(screen.id, 1);
+                                                    }}
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })}
@@ -734,7 +762,7 @@ export default function Step2Discovery() {
                     <ArrowLeft size={16} /> Back
                 </button>
                 <div className="selection-summary">
-                    {campaignData.selectedScreens.length} screens, {Object.values(campaignData.screenSlots).flat().length} segments selected
+                    {campaignData.selectedScreens.length} screen selcted
                 </div>
                 <button
                     className="btn btn-primary"
@@ -790,6 +818,62 @@ export default function Step2Discovery() {
           gap: 1rem;
           flex-wrap: wrap;
           padding-bottom: 1rem;
+        }
+
+        .quantity-selector-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .qty-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .qty-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #9ca3af;
+            letter-spacing: 0.05em;
+        }
+        .qty-available {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #374151;
+            background: white;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .qty-btn:hover {
+            background: #f9fafb;
+            border-color: #000;
+        }
+        .qty-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #000;
+            min-width: 12px;
+            text-align: center;
         }
 
         .search-box {

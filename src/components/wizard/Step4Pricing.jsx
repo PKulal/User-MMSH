@@ -33,12 +33,14 @@ export default function Step4Pricing() {
         dailyCost += hourCost;
       });
 
-      const totalScreenCost = dailyCost * days;
+      const selectedQuantity = screen.selectedQuantity || 1;
+      const totalScreenCost = dailyCost * days * selectedQuantity;
       grandTotal += totalScreenCost;
 
       return {
         id: screen.id,
         name: screen.name,
+        selectedQuantity,
         slotsCount: selectedHourIndices.length,
         dailyCost,
         totalCost: totalScreenCost
@@ -87,6 +89,7 @@ export default function Step4Pricing() {
             <thead>
               <tr>
                 <th>Screen</th>
+                <th className="text-center">Qty</th>
                 <th className="text-center">Slots / Day</th>
                 <th className="text-right">Daily Cost</th>
                 <th className="text-right">Total Cost</th>
@@ -97,6 +100,9 @@ export default function Step4Pricing() {
                 <tr key={screen.id}>
                   <td>
                     <span className="screen-name">{screen.name}</span>
+                  </td>
+                  <td className="text-center">
+                    <span className="badge">{screen.selectedQuantity}</span>
                   </td>
                   <td className="text-center">
                     <span className="badge">{screen.slotsCount}</span>

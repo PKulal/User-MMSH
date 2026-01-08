@@ -37,9 +37,10 @@ export default function Step6Review() {
       };
       let dailyCost = 0;
       selectedHourIndices.forEach(hour => dailyCost += (screen.basePricePerHour * getHourMultiplier(hour)));
-      const totalScreenCost = dailyCost * days;
+      const selectedQuantity = screen.selectedQuantity || 1;
+      const totalScreenCost = dailyCost * days * selectedQuantity;
       grandTotal += totalScreenCost;
-      return { ...screen, slotsCount: selectedHourIndices.length, totalCost: totalScreenCost };
+      return { ...screen, selectedQuantity, slotsCount: selectedHourIndices.length, totalCost: totalScreenCost };
     });
 
     return { days, screens: screenBreakdowns, grandTotal };
@@ -102,6 +103,7 @@ export default function Step6Review() {
                   <tr>
                     <th>Screen Details</th>
                     <th>Type</th>
+                    <th className="text-center">Qty</th>
                     <th className="text-center">Slots</th>
                     <th className="text-right">Total Price</th>
                   </tr>
@@ -116,6 +118,7 @@ export default function Step6Review() {
                         </div>
                       </td>
                       <td>{screen.type}</td>
+                      <td className="text-center"><span className="count-badge">{screen.selectedQuantity}</span></td>
                       <td className="text-center"><span className="count-badge">{screen.slotsCount}</span></td>
                       <td className="text-right font-bold">{screen.totalCost.toLocaleString()} KWD</td>
                     </tr>
